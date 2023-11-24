@@ -46,8 +46,8 @@ def sort_folder(directory):
             input_file_path = os.path.join(root, file)
 
             # Роздільне сортування файлів
-            if file_extension in extensions['archives']:
-                new_folder_name = os.path.join(sorted_directory, 'archives', normalize(file.split('.')[0]))
+            if file_extension in extensions['archive']:
+                new_folder_name = os.path.join(sorted_directory, 'archive', normalize(file.split('.')[0]))
                 os.makedirs(new_folder_name, exist_ok=True)
 
                 try:
