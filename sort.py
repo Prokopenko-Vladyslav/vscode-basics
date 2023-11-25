@@ -73,12 +73,19 @@ def sort_folder(directory):
                 if not found_category:
                     unknown_extensions.add(file_extension)        # додавання невідомих розширень 
                     unknown_dir = os.path.join(sorted_directory, 'unknown')
-
+                    unknown_destination = os.path.join(unknown_dir, normalize(file))
+                    
                     if not os.path.exists(unknown_dir):
                         os.makedirs(unknown_dir)
 
-                    unknown_destination = os.path.join(unknown_dir, file)
-                    shutil.move(input_file_path, unknown_destination)
+                    shutil.copyfile(input_file_path, unknown_destination)
+
+    # Видалення порожніх тек після сортування
+    for root, dirs, files in os.walk(sorted_directory, topdown=False):
+        for folder in dirs:
+            folder_path = os.path.join(root, folder)
+            if not os.listdir(folder_path):
+                os.rmdir(folder_path)
 
     return {
         'known_extensions': list(known_extensions),
